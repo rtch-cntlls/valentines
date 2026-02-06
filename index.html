@@ -9,12 +9,12 @@
     body {
       margin: 0;
       font-family: 'Comic Sans MS', cursive, sans-serif;
-
       height: 100vh;
       display: flex;
       justify-content: center;
       align-items: center;
       overflow: hidden;
+      background: #ffe6ef;
     }
 
     .card {
@@ -93,24 +93,22 @@
 
   <div class="card" id="game">
     <h1>💘 Will you be my Valentine?</h1>
-    <img id="reactionGif" src="" alt="reaction"
-        style="
-            display:none;
-            width: 180px;
-            margin: 10px auto 20px;
-            border-radius: 12px;
-        " />
+    <img id="reactionGif" alt="reaction"
+      style="
+        display:none;
+        width:180px;
+        height:180px;
+        margin:10px auto 20px;
+        border-radius:12px;
+        object-fit: cover;
+      "/>  
     <p id="message">Be honest… your heart already knows 😌</p>
-
     <div class="buttons">
       <button id="yesBtn">YES ❤️</button>
       <button id="noBtn">NO 😢</button>
     </div>
   </div>
-
   <div class="hearts" id="hearts"></div>
-  
-
   <script>
     const noBtn = document.getElementById("noBtn");
     const yesBtn = document.getElementById("yesBtn");
@@ -140,86 +138,80 @@
         "FINAL WARNING ⚠️",
         "Okay fine… I still like you 💖",
         "…so is that a YES now? 🥺👉👈"
-    ];
+      ];
 
-    const gifs = [
-        "1.gif",
-        "2.gif",
-        "3.gif",
-        "4.gif",
-        "5.gif",
-        "6.gif",
-        "7.gif",
-        "8.jpg",
-        "9.gif",
-        "10.gif",
-        "11.gif",
-        "12.gif",
-        "13.gif",
-        "14.gif",
-        "15.gif",
-        "16.gif",
-        "17.gif",
-        "18.gif",
-        "19.gif",
-        "20.gif",
-        "21.gif",
+      const gifs = [
+        "gif/1.gif",
+        "gif/2.gif",
+        "gif/3.gif",
+        "gif/4.gif",
+        "gif/5.gif",
+        "gif/6.gif",
+        "gif/7.gif",
+        "gif/8.jpg",
+        "gif/9.gif",
+        "gif/10.gif",
+        "gif/11.gif",
+        "gif/12.gif",
+        "gif/13.gif",
+        "gif/14.gif",
+        "gif/15.gif",
+        "gif/16.gif",
+        "gif/17.gif",
+        "gif/18.gif",
+        "gif/19.gif",
+        "gif/20.gif",
+        "gif/21.gif"
+      ];
 
-    ];
+      gifs.forEach(src => {
+        const img = new Image();
+        img.src = src;
+      });
 
-    let noCount = 0;
+      let noCount = 0;
 
-    noBtn.addEventListener("click", () => {
+      noBtn.addEventListener("click", () => {
         const x = Math.random() * 250 - 125;
         const y = Math.random() * 100 - 50;
-
         noBtn.style.transform = `translate(${x}px, ${y}px)`;
 
-        const currentIndex = Math.min(noCount, messages.length - 1);
-        message.textContent = messages[currentIndex];
+        const index = Math.min(noCount, messages.length - 1);
+        message.textContent = messages[index];
 
-        reactionGif.src = gifs[currentIndex % gifs.length];
+        reactionGif.style.display = "none";
+        reactionGif.src = gifs[index];
+        reactionGif.onerror = () => reactionGif.src = gifs[0];
+        reactionGif.offsetHeight;
         reactionGif.style.display = "block";
 
-        if (currentIndex === messages.length - 1) {
-            noBtn.style.display = "none";
-            yesBtn.style.transform = "scale(1.2)";
+        if (index === messages.length - 1) {
+          noBtn.style.display = "none";
+          yesBtn.style.transform = "scale(1.2)";
         }
 
         noCount++;
-    });
+      });
 
+      yesBtn.addEventListener("click", () => {
+        document.getElementById("game").innerHTML = `
+          <h1>🎉 YAYYYY!!! ❤️</h1>
+          <img src="gif/143.gif" style="width:200px;margin:10px auto 20px;border-radius:12px;" />
+          <p>You just made my Valentine’s Day 💕<br/>Let’s go eat chocolates 🍫</p>
+        `;
+        startHearts();
+      });
 
-    yesBtn.addEventListener("click", () => {
-      document.getElementById("game").innerHTML = `
-        <h1>🎉 YAYYYY!!! ❤️</h1>
-        <img id="reactionGif" src="143.gif" alt="reaction"
-            style="
-                display:block;
-                width: 180px;
-                margin: 10px auto 20px;
-                border-radius: 12px;
-            " />
-        <p>
-          You just made my Valentine’s Day 💕<br/>
-          Let’s go eat chocolates 🍫
-        </p>
-      `;
-      startHearts();
-    });
-
-    function startHearts() {
-        const hearts = ["❤️", "🧡", "💛", "💚", "💙", "💜"];
+      function startHearts() {
+        const hearts = ["❤️","🧡","💛","💚","💙","💜"];
         setInterval(() => {
-            const heart = document.createElement("div");
-            heart.className = "heart";
-            heart.textContent = hearts[Math.floor(Math.random() * hearts.length)];
-            heart.style.left = Math.random() * 100 + "vw";
-            heart.style.animationDuration = 2 + Math.random() * 3 + "s";
-
-            heartsContainer.appendChild(heart);
-
-            setTimeout(() => heart.remove(), 5000);
+          const heart = document.createElement("div");
+          heart.className = "heart";
+          heart.textContent = hearts[Math.floor(Math.random() * hearts.length)];
+          heart.style.left = Math.random() * 100 + "vw";
+          heart.style.animationDuration = 2 + Math.random() * 3 + "s";
+          heartsContainer.appendChild(heart);
+          setTimeout(() => heart.remove(), 5000);
         }, 300);
     }
   </script>
