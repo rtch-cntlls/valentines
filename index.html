@@ -93,45 +93,113 @@
 
   <div class="card" id="game">
     <h1>💘 Will you be my Valentine?</h1>
+    <img id="reactionGif" src="" alt="reaction"
+        style="
+            display:none;
+            width: 180px;
+            margin: 10px auto 20px;
+            border-radius: 12px;
+        " />
     <p id="message">Be honest… your heart already knows 😌</p>
 
     <div class="buttons">
-      <button id="yesBtn">YES 💖</button>
+      <button id="yesBtn">YES ❤️</button>
       <button id="noBtn">NO 😢</button>
     </div>
   </div>
 
   <div class="hearts" id="hearts"></div>
+  
 
   <script>
     const noBtn = document.getElementById("noBtn");
     const yesBtn = document.getElementById("yesBtn");
     const message = document.getElementById("message");
     const heartsContainer = document.getElementById("hearts");
+    const reactionGif = document.getElementById("reactionGif");
 
     const messages = [
-      "Hey… why no? 🥺",
-      "Are you sure?? 😳",
-      "Think again 💔",
-      "My heart is breaking 😭",
-      "You can't escape love 😈",
-      "Last chance 😤"
+        "Hey… why no? 🥺",
+        "Are you sure?? 😳",
+        "Think again 💔",
+        "My heart is breaking 😭",
+        "You can't escape love 😈",
+        "Last chance 😤",
+        "I even wore my best smile today 😔",
+        "Wow… rejected already? 😶",
+        "Pleaseeee reconsider 🙏",
+        "You really enjoy hurting me huh 😈",
+        "Okay… now I’m just sad 😢",
+        "This is emotional damage 💔💥",
+        "Stop clicking NO 😭",
+        "You’re testing my patience 😤",
+        "I’m running out of sad faces 😢",
+        "Love is chasing you 🏃‍♂️💘",
+        "You can’t escape forever 😈🔥",
+        "Last chance… I mean it 😠",
+        "FINAL WARNING ⚠️",
+        "Okay fine… I still like you 💖",
+        "…so is that a YES now? 🥺👉👈"
+    ];
+
+    const gifs = [
+        "gif/1.gif",
+        "gif/2.gif",
+        "gif/3.gif",
+        "gif/4.gif",
+        "gif/5.gif",
+        "gif/6.gif",
+        "gif/7.gif",
+        "gif/8.jpg",
+        "gif/9.gif",
+        "gif/10.gif",
+        "gif/11.gif",
+        "gif/12.gif",
+        "gif/13.gif",
+        "gif/14.gif",
+        "gif/15.gif",
+        "gif/16.gif",
+        "gif/17.gif",
+        "gif/18.gif",
+        "gif/19.gif",
+        "gif/20.gif",
+        "gif/21.gif",
+
     ];
 
     let noCount = 0;
 
-    noBtn.addEventListener("mouseenter", () => {
-      const x = Math.random() * 250 - 125;
-      const y = Math.random() * 100 - 50;
+    noBtn.addEventListener("click", () => {
+        const x = Math.random() * 250 - 125;
+        const y = Math.random() * 100 - 50;
 
-      noBtn.style.transform = `translate(${x}px, ${y}px)`;
-      message.textContent = messages[noCount % messages.length];
-      noCount++;
+        noBtn.style.transform = `translate(${x}px, ${y}px)`;
+
+        const currentIndex = Math.min(noCount, messages.length - 1);
+        message.textContent = messages[currentIndex];
+
+        reactionGif.src = gifs[currentIndex % gifs.length];
+        reactionGif.style.display = "block";
+
+        if (currentIndex === messages.length - 1) {
+            noBtn.style.display = "none";
+            yesBtn.style.transform = "scale(1.2)";
+        }
+
+        noCount++;
     });
+
 
     yesBtn.addEventListener("click", () => {
       document.getElementById("game").innerHTML = `
-        <h1>🎉 YAYYYY!!! 💖</h1>
+        <h1>🎉 YAYYYY!!! ❤️</h1>
+        <img id="reactionGif" src="gif/143.gif" alt="reaction"
+            style="
+                display:block;
+                width: 180px;
+                margin: 10px auto 20px;
+                border-radius: 12px;
+            " />
         <p>
           You just made my Valentine’s Day 💕<br/>
           Let’s go eat chocolates 🍫
