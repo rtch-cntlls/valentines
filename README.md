@@ -1,6 +1,6 @@
 # 💘 Valentine's Day Templete
 
-A cute interactive Valentine’s Day game built with **HTML, CSS, and JavaScript**!  
+A cute interactive Valentine’s Day templete built with **HTML, CSS, and JavaScript**!  
 
 Click **YES ❤️** or **NO 😢** and see how the game reacts. Hearts float on the screen when you win! 🥰
 
